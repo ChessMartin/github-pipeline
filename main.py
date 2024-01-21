@@ -36,6 +36,7 @@ def todo():
 def testing():
     payload = request.json
     ref = payload.get('ref', '') if payload else ''
+    print("hello i'm the testing endpopint")
 
     if ref == 'refs/heads/staging':
         print("Running the testing script from the endpoint")
@@ -47,6 +48,7 @@ def testing():
 def deploy():
     payload = request.json
     ref = payload.get('ref', '') if payload else ''
+    print("hello i'm the deploy endpopint")
 
     if ref == 'refs/heads/staging':
         print("Running the deployement script from the endpoint")
