@@ -38,7 +38,7 @@ def testing():
     ref = payload.get('ref', '') if payload else ''
 
     if ref == 'refs/heads/staging':
-        print("Push to testing branch detected.")
+        print("showing that it works to the professor")
         subprocess.run(["./testing_script.sh"])
 
     return 'Webhook received', 200  # Sending a 200 response to GitHub
