@@ -47,6 +47,7 @@ def testing():
 def deploy():
     payload = request.json
     ref = payload.get('ref', '') if payload else ''
+    print(ref)
 
     if ref == 'refs/heads/main':
         subprocess.run(["./deployment_script.sh"])
