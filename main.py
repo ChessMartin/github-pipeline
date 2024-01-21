@@ -35,11 +35,11 @@ def todo():
 @app.route('/testing', methods=['POST'])
 def testing():
     payload = request.json
-    ref = payload.get('ref', '')
+    ref = payload.get('ref', '') if payload else ''
 
-    print(ref)
-    if ref == 'refs/heads/testing':
-        print("Push to testing branch detected. Implement your logic here.")
+    if ref == 'refs/heads/staging':
+        print("Push to testing branch detected.")
+        subprocess.run(["./testing_script.sh"])
 
     return 'Webhook received', 200  # Sending a 200 response to GitHub
 
@@ -50,8 +50,8 @@ def deploy():
     print(ref)
 
     if ref == 'refs/heads/main':
-        subprocess.run(["./deployment_script.sh"])
         print("Deployment script executed.")
+        subprocess.run(["./deployment_script.sh"])
 
     return 'Deployment webhook received', 200
 
