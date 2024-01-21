@@ -38,19 +38,18 @@ def testing():
     ref = payload.get('ref', '') if payload else ''
 
     if ref == 'refs/heads/staging':
-        print("showing that it works to the professor")
+        print("Running the testing script from the endpoint")
         subprocess.run(["./testing_script.sh"])
 
-    return 'Webhook received', 200  # Sending a 200 response to GitHub
+    return 'Webhook received', 200
 
 @app.route('/deploy', methods=['POST'])
 def deploy():
     payload = request.json
     ref = payload.get('ref', '') if payload else ''
-    print(ref)
 
-    if ref == 'refs/heads/main':
-        print("Deployment script executed.")
+    if ref == 'refs/heads/staging':
+        print("Running the deployement script from the endpoint")
         subprocess.run(["./deployment_script.sh"])
 
     return 'Deployment webhook received', 200
