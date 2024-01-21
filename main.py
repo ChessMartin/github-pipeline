@@ -37,6 +37,7 @@ def testing():
     payload = request.json
     ref = payload.get('ref', '')
 
+    print(ref)
     if ref == 'refs/heads/testing':
         print("Push to testing branch detected. Implement your logic here.")
 
