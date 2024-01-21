@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template_string
+import subprocess
 
 app = Flask(__name__)
 todos = []
@@ -30,6 +31,28 @@ def todo():
             </body>
         </html>
     """, todos=todos)
+
+@app.route('/testing', methods=['POST'])
+def testing():
+    payload = request.json
+    ref = payload.get('ref', '')
+
+    if ref == 'refs/heads/testing':
+        print("Push to testing branch detected. Implement your logic here.")
+
+    return 'Webhook received', 200  # Sending a 200 response to GitHub
+
+@app.route('/deploy', methods=['POST'])
+def deploy():
+    payload = request.json
+    ref = payload.get('ref', '') if payload else ''
+
+    if ref == 'refs/heads/main':
+        subprocess.run(["./deployment_script.sh"])
+        print("Deployment script executed.")
+
+    return 'Deployment webhook received', 200
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
